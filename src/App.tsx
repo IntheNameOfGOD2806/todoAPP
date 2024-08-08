@@ -2,7 +2,9 @@ import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { FaPenToSquare } from "react-icons/fa6";
 import { v4 as uuidv4 } from "uuid";
+import Example from '../components/Modal';
 import "./App.css";
 
 function App() {
@@ -24,9 +26,10 @@ function App() {
       completed: false,
     },
   ]);
+  const [editID, setEditID] = useState<string>("");
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const handleAddTodo = () => {
     if (title === "") {
-      
       alert("Title cannot be empty");
       return;
     }
@@ -48,6 +51,13 @@ function App() {
   const handleDeleteTodo = (id: string) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
+  const handleEditTodo = (title: string) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === editID ? { ...todo, title: title } : todo
+      )
+    );
+  };
   return (
     <>
       <div className="App-wrapper">
@@ -63,9 +73,20 @@ function App() {
                 />
               </InputGroup>
             </div>
-            <span className="addBtn" onClick={handleAddTodo}>
+            <span
+              className="addBtn"
+              onClick={handleAddTodo}
+              style={{
+                cursor: "pointer",
+                position: "relative",
+                top: "4px",
+                left: "120px",
+              }}
+            >
               Add
             </span>
+            <br />
+            <br />
             <h4> *click on todo title to complete</h4>
             <h6>Author:DatTT</h6>
           </div>
@@ -75,21 +96,46 @@ function App() {
             {todos.length > 0 &&
               todos.map((todo) => (
                 <li key={todo.id} className={todo.completed ? "checked" : ""}>
-                  <span  style={{ textDecoration: todo.completed ? "line-through" : "none" }} onClick={() => setCompleted(todo.id as string)}>
+                  <span
+                    style={{
+                      textDecoration: todo.completed ? "line-through" : "none",
+                    }}
+                    onClick={() => setCompleted(todo.id as string)}
+                  >
                     {todo.title}
                   </span>
                   <span
+                  style={{
+                    float: "right",
+                    marginLeft: "10px",
+                  }}
+                      onClick={() => {
+                        setOpenModal(true);
+                        setEditID(todo.id as string);
+                      }}
+                    >
+                      <FaPenToSquare />
+                    </span>
+                  <span
                     onClick={() => handleDeleteTodo(todo.id as string)}
                     className="delete"
-                    style={{ float: "right", zIndex: "10",}}
+                    style={{
+                      float: "right",
+                      zIndex: "10",
+                      display: "flex",
+                      gap: "8px",
+                    }}
                   >
-                    <FaRegTrashAlt  />
+                  
+                    <FaRegTrashAlt />
                   </span>
                 </li>
               ))}
           </ul>
         </div>
       </div>
+
+    <Example openModal={openModal} setOpenModal={setOpenModal}  editID={editID} handleEditTodo={handleEditTodo} />
     </>
   );
 }
