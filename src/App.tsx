@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { v4 as uuidv4 } from 'uuid';
 import "../components/todolist.scss";
-import "./App.css";import Form from 'react-bootstrap/Form';
+import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 function App() {
