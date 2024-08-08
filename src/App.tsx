@@ -10,17 +10,17 @@ function App() {
   const [todos, setTodos] = useState<todo[]>([
     {
       id: uuidv4(),
-      title: "Hit the gym",
+      title: "adfafaasda",
       completed: true,
     },
     {
       id: uuidv4(),
-      title: "Meet George",
+      title: "asdasdadadada",
       completed: false,
     },
     {
       id: uuidv4(),
-      title: "Buy eggs",
+      title: "12313123123131",
       completed: false,
     },
   ]);
@@ -75,7 +75,7 @@ function App() {
             {todos.length > 0 &&
               todos.map((todo) => (
                 <li key={todo.id} className={todo.completed ? "checked" : ""}>
-                  <span onClick={() => setCompleted(todo.id as string)}>
+                  <span  style={{ textDecoration: todo.completed ? "line-through" : "none" }} onClick={() => setCompleted(todo.id as string)}>
                     {todo.title}
                   </span>
                   <span
