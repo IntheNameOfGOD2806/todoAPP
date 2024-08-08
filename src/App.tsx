@@ -52,6 +52,7 @@ function App() {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
   const handleEditTodo = (title: string) => {
+    if(title === "") return
     setTodos(
       todos.map((todo) =>
         todo.id === editID ? { ...todo, title: title } : todo
@@ -88,6 +89,8 @@ function App() {
             <br />
             <br />
             <h4> *click on todo title to complete</h4>
+            <h4> *click on pen icon to edit title</h4>
+
             <h6>Author:DatTT</h6>
           </div>
 
